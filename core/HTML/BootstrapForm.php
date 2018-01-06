@@ -25,6 +25,21 @@
     public function submit($name) {
       return $this->surround("<button type='submit' class='btn btn-primary'>Submit</button>");
     }
+
+    public function select($name, $label, $options){
+      $label = "<label>".$label."</label> ";
+      $select = "<select class='form-control class='form-control' name='{$name}'>";
+      foreach ($options as $key => $value) {
+        $attributes = '';
+        if($key === $this->getValue($name)){
+          $attributes = ' selected ';
+        }
+        $select .= "<option value='{$key}' {$attributes}>{$value}</option>";
+      }
+      $select .= "</select>";
+
+      return $this->surround($label.$select);
+    }
   }
 
  ?>

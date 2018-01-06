@@ -46,6 +46,21 @@
 
       return $this->query("UPDATE {$this->table} SET $set_keys WHERE id = ?", $values, true);
     }
+
+    /**
+     * Associate a key to value of an object
+     * @param string the key you want
+     * @param string the attribute that wiil be assoicate to the key
+     */
+    public function getList($key, $value){
+      $records = $this->getAll();
+      $list = [];
+
+      foreach ($records as $cat) {
+        $list[$cat->$key] = $cat->$value;
+      }
+      return $list;
+    }
   }
 
  ?>

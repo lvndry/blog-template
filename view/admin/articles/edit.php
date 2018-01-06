@@ -5,12 +5,13 @@
   $postable = $app->getTable('Post');
   $post = $postable->getOne($_GET['id']);
   $form = new BootstrapForm($post);
-  $categorie = $app->getTable('Categorie')->getAll();
+  $categories = $app->getTable('Categorie')->getList('id', 'title');
 
   if(!empty($_POST)) {
     $ok = $postable->update($_GET['id'], [
       'title' => $_POST['title'],
-      'content' => $_POST['content']
+      'content' => $_POST['content'],
+      'category_id' => $_POST['category_id']
     ]);
     if($ok) {
       ?>
@@ -31,5 +32,6 @@
  <form class="col-sm-8" method="post">
    <?= $form->input('title', 'Title'); ?>
    <?= $form->textarea('content', 'Content') ?>
+   <?= $form->select('category_id', 'Categorie', $categories); ?>
    <button type="submit" class="btn btn-primary">Submit</button>
  </form>

@@ -17,7 +17,7 @@
           <td> <?= $post->id ?> </td>
           <td> <?= $post->title ?> </td>
           <td>
-            <a class="btn btn-primary" href="?page=post.edit&id="<?=$post->id ?> >Edit</a>
+            <a class="btn btn-primary" href="?page=post.edit&id=<?=$post->id ?>">Edit</a>
           </td>
         </tr>
     <?php endforeach ?>

@@ -9,9 +9,7 @@
       protected $table = "categories";
 
       public function getName($id) {
-        return $this->query("
-          SELECT categories.title as name FROM categories where categories.id = ?
-        ", [$id], true);
+        return $this->query("SELECT categories.title as name FROM categories where categories.id = ?", [$id], true);
       }
   }
 
