@@ -7,6 +7,7 @@
   define ('ROOT', dirname(__DIR__));
   require ROOT.'/app/App.php';
 
+  use App\Controller\PostController;
   App::load();
 
   if(isset($_GET['page'])){
@@ -15,18 +16,20 @@
     $page = 'home';
   }
 
+  $postController = new PostController();
+
   ob_start();
   if ($page === 'home') {
-    require ROOT.'/view/articles/home.php';
+    $postController->index();
   }
   elseif($page === 'post.categorie') {
-    require ROOT.'/view/articles/categorie.php';
+    $postController->categorie();
   }
   elseif($page === 'post.show') {
-    require ROOT.'/view/articles/post.php';
+    $postController->show($_GET['id']);
   }
   elseif ($page === '404') {
-    require ROOT.'/view/templates/404.php';
+
   }
   $content = ob_get_clean();
   require ROOT.'/view/templates/default.php';

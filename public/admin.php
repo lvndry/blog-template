@@ -40,13 +40,17 @@
   elseif ($page === "forbidden") {
     require ROOT.'/view/templates/forbidden.php';
   }
-  elseif ($page == "login") {
+  elseif ($page === "login") {
       require ROOT.'/view/users/login.php';
   }
-  elseif ($page == "post.edit") {
+  elseif ($page === "post.edit") {
       require ROOT.'/view/admin/articles/edit.php';
+  } elseif ($page === 'post.add') {
+    require ROOT.'/view/admin/articles/add.php';
+  } elseif ($page === 'post.delete') {
+    require ROOT.'/view/admin/articles/delete.php';
   }
-  
+
   $content = ob_get_clean();
   require ROOT.'/view/templates/default.php';
  ?>

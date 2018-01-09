@@ -12,8 +12,7 @@ class PgDatabase extends Database
   private $password;
   private $pdo;
 
-  function __construct($dbname, $dbhost="localhost", $user="postgres", $password="adminboat")
-  {
+  function __construct($dbname, $dbhost="localhost", $user="postgres", $password="adminboat") {
     $this->dbname = $dbname;
     $this->$dbhost = $dbhost;
     $this->$user = $user;
@@ -75,6 +74,10 @@ class PgDatabase extends Database
       $datas = $req->fetchAll();
     }
     return $datas;
+  }
+
+  public function lastInsertId(){
+    return $this->getPDO()->lastInsertId();
   }
 }
 

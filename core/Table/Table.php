@@ -38,13 +38,26 @@
       $updates = [];
       $values = [];
       foreach ($fields as $key => $value) {
-          $updates [] = "$key = ?";
+          $updates[] = "$key = ?";
           $values[] = $value;
       }
       $values[] = $id;
       $set_keys = implode(',', $updates);
 
       return $this->query("UPDATE {$this->table} SET $set_keys WHERE id = ?", $values, true);
+    }
+
+    public function create($fields) {
+      $created = [];
+      $values = [];
+      foreach ($fields as $key => $value) {
+          $created[] = "{$key}";
+          $values[] = "'{$value}'";
+      }
+      $set_keys = implode(', ', $created);
+      $values = implode(', ', $values);
+
+      return $this->query("INSERT INTO {$this->table} ({$set_keys}) VALUES ({$values})", null, true);
     }
 
     /**
@@ -60,6 +73,10 @@
         $list[$cat->$key] = $cat->$value;
       }
       return $list;
+    }
+
+    public function delete($id) {
+      return $this->query("DELETE FROM {$this->table} WHERE id = ?", [$id], true);
     }
   }
 

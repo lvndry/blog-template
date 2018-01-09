@@ -3,19 +3,18 @@
 
   $app = App::getInstance();
   $postable = $app->getTable('Post');
-  $post = $postable->getOne($_GET['id']);
-  $form = new BootstrapForm($post);
   $categories = $app->getTable('Categorie')->getList('id', 'title');
+  $form = new BootstrapForm($_POST);
 
   if(!empty($_POST)) {
-    $ok = $postable->update($_GET['id'], [
+    $ok = $postable->create([
       'title' => $_POST['title'],
       'content' => $_POST['content'],
-      'category_id' => $_POST['category_id']
+      'category_id' => $_POST['category_id'],
+      'date' => date("d-m-Y H:m:s")
     ]);
-
     if($ok) {
-      header("Location: ?page=post.show&id=".$_GET['id']);
+      header("Location: ?page=post.show&id=".$app->getDb()->lastInsertId());
     } else {
     ?>
     <div class="alert alert-danger">
@@ -30,5 +29,5 @@
    <?= $form->input('title', 'Title'); ?>
    <?= $form->textarea('content', 'Content') ?>
    <?= $form->select('category_id', 'Categorie', $categories); ?>
-   <button type="submit" class="btn btn-primary">Submit</button>
+   <button type="submit" class="btn btn-primary">Add</button>
  </form>
